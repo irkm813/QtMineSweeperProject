@@ -50,7 +50,7 @@ public:
         if (QtMineSweeperClass->objectName().isEmpty())
             QtMineSweeperClass->setObjectName("QtMineSweeperClass");
         QtMineSweeperClass->setWindowModality(Qt::ApplicationModal);
-        QtMineSweeperClass->resize(800, 600);
+        QtMineSweeperClass->resize(1280, 720);
         QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
@@ -95,14 +95,15 @@ public:
 
         ResetButton = new QPushButton(centralWidget);
         ResetButton->setObjectName("ResetButton");
-        sizePolicy2.setHeightForWidth(ResetButton->sizePolicy().hasHeightForWidth());
-        ResetButton->setSizePolicy(sizePolicy2);
+        sizePolicy.setHeightForWidth(ResetButton->sizePolicy().hasHeightForWidth());
+        ResetButton->setSizePolicy(sizePolicy);
         ResetButton->setAutoFillBackground(false);
         ResetButton->setStyleSheet(QString::fromUtf8("background-color: lightgray"));
         QIcon icon;
         icon.addFile(QString::fromUtf8("../../../../Pictures/FYG7kqdXkAM1-dY.png"), QSize(), QIcon::Normal, QIcon::Off);
         ResetButton->setIcon(icon);
         ResetButton->setIconSize(QSize(64, 63));
+        ResetButton->setAutoRepeat(false);
 
         NavBar->addWidget(ResetButton);
 
@@ -126,7 +127,7 @@ public:
         QtMineSweeperClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(QtMineSweeperClass);
         menuBar->setObjectName("menuBar");
-        menuBar->setGeometry(QRect(0, 0, 800, 22));
+        menuBar->setGeometry(QRect(0, 0, 1280, 22));
         menuDifficulty = new QMenu(menuBar);
         menuDifficulty->setObjectName("menuDifficulty");
         QtMineSweeperClass->setMenuBar(menuBar);

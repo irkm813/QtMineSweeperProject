@@ -86,7 +86,6 @@
     <QtRcc Include="QtMineSweeper.qrc" />
     <QtUic Include="QtMineSweeper.ui" />
     <QtMoc Include="QtMineSweeper.h" />
-    <ClCompile Include="mineSweeperCore.cpp" />
     <ClCompile Include="QtMineSweeper.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>

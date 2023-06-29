@@ -11,15 +11,20 @@ public:
     QtMineSweeper(QWidget *parent = nullptr);
     ~QtMineSweeper();
 
-    void tableGenerator();
+    void tableGenerator(int);
 
     void numberReveal(int,int);
+    
+    void resetGame();
 
 private:
     Ui::QtMineSweeperClass ui;
 };
 
 class MineSweeperCore {
+private:
+    int diff;
+
 public:
 
     int rowCount{ 16 }, colCount{ 30 }, oCounter{ 0 }, iCounter{ 0 }, mineCounter = { 99 }, firstTry{ 13 };
@@ -30,7 +35,14 @@ public:
     int** mainBoard = new int* [rowCount];
 
 
-    MineSweeperCore() {
+    MineSweeperCore(int d = 2, int f = 13) {
+        
+        diff = d; firstTry = f;
+
+        int rowList[3]{ 10,16,16 };
+        int colList[3]{ 10,16,30 };
+
+        rowCount = rowList[diff]; colCount = colList[diff];
 
         for (iCounter = 0; iCounter < rowCount; ++iCounter) {
             mainBoard[iCounter] = new int[colCount] {0};
@@ -78,12 +90,12 @@ public:
         return mines;
     }
 
-    void mine_generator() {
+    void mine_generator(int mineSum) {
 
         srand((unsigned)time(NULL));
 
 
-        for (mineCounter = 99; mineCounter > 0; mineCounter--) {
+        for (mineCounter = mineSum; mineCounter > 0; mineCounter--) {
             int randomRow = rand() % rowCount; int randomCol = rand() % colCount;
 
 

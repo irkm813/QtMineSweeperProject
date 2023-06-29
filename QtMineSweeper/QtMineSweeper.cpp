@@ -4,30 +4,33 @@
 
 QPushButton* gameButton[480];
 
-void QtMineSweeper::tableGenerator() {
+void QtMineSweeper::tableGenerator(int diff = 0) {
 
 
-    MineSweeperCore mtable;  //creating the table with full of zeroes
-    mtable.mine_generator(); //filling the table with mines
+    int rowList[3]{ 10,16,16 };
+    int colList[3]{ 10,16,30 };
+    int mineList[3]{ 10,40,99 };
+
+    MineSweeperCore mtable(diff);  //creating the table with full of zeroes
+    mtable.mine_generator(mineList[diff]); //filling the table with mines
 
 
     QSizePolicy sizePolicy1(QSizePolicy::Preferred, QSizePolicy::Preferred); //setting up a size policy that we can apply for the buttons
 
-    sizePolicy1.setHorizontalStretch(0);
+    sizePolicy1.setHorizontalStretch(0);  //defininig size policy for the buttons
     sizePolicy1.setVerticalStretch(0);
 
     int rowCounter{ 0 }, colCounter{ 0 };
+    int totalFields = rowList[diff] * colList[diff];
 
+    for (int i = 0; i < totalFields ; i++) {
 
-    for (int i = 0; i < 480 ; i++) {
-
-        if (colCounter == 30){
+        if (colCounter == colList[diff]) {
             rowCounter++;
             colCounter = 0;
         }
 
         int cellNumber = mtable.mainBoard[rowCounter][colCounter];
-
 
         gameButton[i] = new QPushButton(ui.centralWidget);
         gameButton[i]->setObjectName("gameButton"+std::to_string(i));
@@ -43,6 +46,10 @@ void QtMineSweeper::tableGenerator() {
 }
 }
 
+void QtMineSweeper::resetGame() {
+    
+}
+
 void QtMineSweeper::numberReveal(int displayNum, int buttonId) {
 
     QString possibleTexts[10]{
@@ -53,10 +60,10 @@ void QtMineSweeper::numberReveal(int displayNum, int buttonId) {
         "color: red; background-color: #D3D3D3; font-weight: bold",
         "color: green; background-color: #D3D3D3; font-weight: bold",
         "color: blue; background-color: #D3D3D3; font-weight: bold",
-        "color: red; background-color: #D3D3D3; font-weight: bold",
-        "color: dark blue; background-color: #D3D3D3; font-weight: bold",
-        "color: brown; background-color: #D3D3D3; font-weight: bold",
         "color: cyan; background-color: #D3D3D3; font-weight: bold",
+        "color: darkblue; background-color: #D3D3D3; font-weight: bold",
+        "color: brown; background-color: #D3D3D3; font-weight: bold",
+        "color: darkgreen; background-color: #D3D3D3; font-weight: bold",
         "color: black; background-color: #D3D3D3; font-weight: bold",
         "color: red; background-color: #D3D3D3; font-weight: bold",
         "color: black; background-color: red; font-weight: bold",
@@ -72,11 +79,11 @@ QtMineSweeper::QtMineSweeper(QWidget *parent)
 {
     ui.setupUi(this);
 
-    tableGenerator();
-  
+    connect(ui.ResetButton, &QPushButton::clicked, this, &QtMineSweeper::resetGame);
 
-    ui.centralWidget->setFixedWidth(1280);
-    ui.centralWidget->setFixedHeight(720);
+    tableGenerator();
+
+    ui.centralWidget->setFixedSize(1280, 720);
 
 }
 
