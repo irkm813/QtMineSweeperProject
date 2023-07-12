@@ -15,7 +15,9 @@ public:
 
     void numberReveal(int,int);
     
-    void resetGame();
+    void resetGame(int);
+
+    void showInfo();
 
 private:
     Ui::QtMineSweeperClass ui;
@@ -48,6 +50,21 @@ public:
             mainBoard[iCounter] = new int[colCount] {0};
         }
 
+    }
+
+    void reset(int d = 2, int f = 13) {
+        diff = d; firstTry = f;
+
+        int rowList[3]{ 10,16,16 };
+        int colList[3]{ 10,16,30 };
+
+        rowCount = rowList[diff]; colCount = colList[diff];
+
+        for (iCounter = 0; iCounter < rowCount; ++iCounter) {
+            mainBoard[iCounter] = new int[colCount] {0};
+        }
+
+        
     }
 
     int field_number_counter(int row, int col) {

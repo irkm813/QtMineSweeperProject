@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1280</width>
-    <height>720</height>
+    <width>900</width>
+    <height>800</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -94,7 +94,7 @@
         </property>
         <property name="icon">
          <iconset>
-          <normaloff>../../../../Pictures/FYG7kqdXkAM1-dY.png</normaloff>../../../../Pictures/FYG7kqdXkAM1-dY.png</iconset>
+          <normaloff>icons/442-4422485_happy-cat-png-via-del-mar-beach.png</normaloff>icons/442-4422485_happy-cat-png-via-del-mar-beach.png</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -104,22 +104,6 @@
         </property>
         <property name="autoRepeat">
          <bool>false</bool>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="TimeLabel">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="text">
-         <string>Time</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
         </property>
        </widget>
       </item>
@@ -139,7 +123,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1280</width>
+     <width>900</width>
      <height>22</height>
     </rect>
    </property>
@@ -150,7 +134,9 @@
     <addaction name="actionEasy"/>
     <addaction name="actionNormal"/>
     <addaction name="actionHard"/>
+    <addaction name="separator"/>
     <addaction name="actionInfo"/>
+    <addaction name="separator"/>
    </widget>
    <addaction name="menuDifficulty"/>
   </widget>
