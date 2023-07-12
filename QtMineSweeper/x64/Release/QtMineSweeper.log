@@ -1,8 +1,4 @@
-﻿  Reading Qt configuration (C:/Qt/6.5.1/msvc2019_64/bin/qmake)
-  QtMineSweeper.cpp
+﻿  QtMineSweeper.cpp
   main.cpp
-C:\Users\Ferenc\source\repos\QtMineSweeper\QtMineSweeper\QtMineSweeper.cpp(156): warning C4700: uninitialized local variable 'colCounter' used
-C:\Users\Ferenc\source\repos\QtMineSweeper\QtMineSweeper\QtMineSweeper.cpp(157): warning C4700: uninitialized local variable 'rowCounter' used
-  qrc_QtMineSweeper.cpp
   moc_QtMineSweeper.cpp
   QtMineSweeper.vcxproj -> C:\Users\Ferenc\source\repos\QtMineSweeper\x64\Release\QtMineSweeper.exe

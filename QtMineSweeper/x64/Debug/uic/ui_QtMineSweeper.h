@@ -21,6 +21,7 @@
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
+#include <QtWidgets/QTimeEdit>
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QWidget>
 
@@ -36,8 +37,9 @@ public:
     QWidget *centralWidget;
     QGridLayout *gridLayout;
     QHBoxLayout *NavBar;
-    QLabel *ScoreLabel;
+    QTimeEdit *mineTimer;
     QPushButton *ResetButton;
+    QLabel *scoreLabel;
     QGridLayout *InnerGrid;
     QMenuBar *menuBar;
     QMenu *menuDifficulty;
@@ -79,18 +81,24 @@ public:
         NavBar = new QHBoxLayout();
         NavBar->setSpacing(0);
         NavBar->setObjectName("NavBar");
-        NavBar->setSizeConstraint(QLayout::SetFixedSize);
+        NavBar->setSizeConstraint(QLayout::SetMinimumSize);
         NavBar->setContentsMargins(-1, -1, -1, 0);
-        ScoreLabel = new QLabel(centralWidget);
-        ScoreLabel->setObjectName("ScoreLabel");
-        QSizePolicy sizePolicy2(QSizePolicy::Minimum, QSizePolicy::Fixed);
-        sizePolicy2.setHorizontalStretch(0);
-        sizePolicy2.setVerticalStretch(0);
-        sizePolicy2.setHeightForWidth(ScoreLabel->sizePolicy().hasHeightForWidth());
-        ScoreLabel->setSizePolicy(sizePolicy2);
-        ScoreLabel->setAlignment(Qt::AlignCenter);
+        mineTimer = new QTimeEdit(centralWidget);
+        mineTimer->setObjectName("mineTimer");
+        sizePolicy.setHeightForWidth(mineTimer->sizePolicy().hasHeightForWidth());
+        mineTimer->setSizePolicy(sizePolicy);
+        mineTimer->setFocusPolicy(Qt::NoFocus);
+        mineTimer->setContextMenuPolicy(Qt::DefaultContextMenu);
+        mineTimer->setAcceptDrops(false);
+        mineTimer->setFrame(true);
+        mineTimer->setAlignment(Qt::AlignCenter);
+        mineTimer->setReadOnly(true);
+        mineTimer->setButtonSymbols(QAbstractSpinBox::NoButtons);
+        mineTimer->setAccelerated(false);
+        mineTimer->setKeyboardTracking(false);
+        mineTimer->setProperty("showGroupSeparator", QVariant(false));
 
-        NavBar->addWidget(ScoreLabel);
+        NavBar->addWidget(mineTimer);
 
         ResetButton = new QPushButton(centralWidget);
         ResetButton->setObjectName("ResetButton");
@@ -99,12 +107,20 @@ public:
         ResetButton->setAutoFillBackground(false);
         ResetButton->setStyleSheet(QString::fromUtf8("background-color: lightgray"));
         QIcon icon;
-        icon.addFile(QString::fromUtf8("icons/442-4422485_happy-cat-png-via-del-mar-beach.png"), QSize(), QIcon::Normal, QIcon::Off);
+        icon.addFile(QString::fromUtf8("icons/happy.png"), QSize(), QIcon::Normal, QIcon::Off);
         ResetButton->setIcon(icon);
         ResetButton->setIconSize(QSize(64, 63));
         ResetButton->setAutoRepeat(false);
 
         NavBar->addWidget(ResetButton);
+
+        scoreLabel = new QLabel(centralWidget);
+        scoreLabel->setObjectName("scoreLabel");
+        sizePolicy.setHeightForWidth(scoreLabel->sizePolicy().hasHeightForWidth());
+        scoreLabel->setSizePolicy(sizePolicy);
+        scoreLabel->setAlignment(Qt::AlignCenter);
+
+        NavBar->addWidget(scoreLabel);
 
 
         gridLayout->addLayout(NavBar, 0, 0, 1, 1);
@@ -149,8 +165,8 @@ public:
         actionNormal->setText(QCoreApplication::translate("QtMineSweeperClass", "Normal", nullptr));
         actionHard->setText(QCoreApplication::translate("QtMineSweeperClass", "Hard", nullptr));
         actionInfo->setText(QCoreApplication::translate("QtMineSweeperClass", "Info", nullptr));
-        ScoreLabel->setText(QCoreApplication::translate("QtMineSweeperClass", "Score", nullptr));
         ResetButton->setText(QString());
+        scoreLabel->setText(QCoreApplication::translate("QtMineSweeperClass", "Score: 0", nullptr));
         menuDifficulty->setTitle(QCoreApplication::translate("QtMineSweeperClass", "Difficulty", nullptr));
     } // retranslateUi
 

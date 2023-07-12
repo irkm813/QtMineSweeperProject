@@ -2,7 +2,7 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
-      <FullPath>C:\Users\Ferenc\source\repos\QtMineSweeper\QtMineSweeperSetup\x64\Debug\QtMineSweeper.exe</FullPath>
+      <FullPath>C:\Users\Ferenc\source\repos\QtMineSweeper\x64\Debug\QtMineSweeper.exe</FullPath>
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles />

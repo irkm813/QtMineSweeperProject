@@ -5,8 +5,6 @@ VisualStudioVersion = 17.4.33403.182
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "QtMineSweeper", "QtMineSweeper\QtMineSweeper.vcxproj", "{D58755A5-4591-40E1-84C8-FDF1269D311C}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "QtMineSweeperSetup", "QtMineSweeperSetup\QtMineSweeperSetup\QtMineSweeperSetup.vdproj", "{6EC24F70-5DD3-48A6-83B6-E1CB810B1A91}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -17,10 +15,6 @@ Global
 		{D58755A5-4591-40E1-84C8-FDF1269D311C}.Debug|x64.Build.0 = Debug|x64
 		{D58755A5-4591-40E1-84C8-FDF1269D311C}.Release|x64.ActiveCfg = Release|x64
 		{D58755A5-4591-40E1-84C8-FDF1269D311C}.Release|x64.Build.0 = Release|x64
-		{6EC24F70-5DD3-48A6-83B6-E1CB810B1A91}.Debug|x64.ActiveCfg = Debug
-		{6EC24F70-5DD3-48A6-83B6-E1CB810B1A91}.Debug|x64.Build.0 = Debug
-		{6EC24F70-5DD3-48A6-83B6-E1CB810B1A91}.Release|x64.ActiveCfg = Release
-		{6EC24F70-5DD3-48A6-83B6-E1CB810B1A91}.Release|x64.Build.0 = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

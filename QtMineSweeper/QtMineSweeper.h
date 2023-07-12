@@ -19,6 +19,10 @@ public:
 
     void showInfo();
 
+    void showWinScreen();
+
+    void revealEmpties();
+
 private:
     Ui::QtMineSweeperClass ui;
 };
@@ -120,6 +124,9 @@ public:
                 mainBoard[randomRow][randomCol] = 0;
                 mineCounter++;
             }
+            else if (mainBoard[randomRow][randomCol] == 9) {
+                mineCounter++;
+            }
             else {
                 mainBoard[randomRow][randomCol] = 9;
             }
@@ -136,6 +143,6 @@ public:
 
     }
     ~MineSweeperCore() {
-        delete mainBoard;
+        delete[] mainBoard;
     }
 };

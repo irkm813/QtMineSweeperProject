@@ -1,11 +1,48 @@
 #include "QtMineSweeper.h"
+#include "QTimer"
 #include <string>
 
-int difficulty = 0;
+int difficulty = 0, highScore = 0;
 MineSweeperCore mtable(difficulty);  //creating the table with full of zeroes
 QPushButton* gameButton[480];
 
+int rowList[3]{ 10,16,16 };
+int colList[3]{ 10,16,30 };
+int mineList[3]{ 15,40,99 };
 
+void QtMineSweeper::revealEmpties() {
+
+}
+//This function show a window to the player if they manages to find all the mines
+void QtMineSweeper::showWinScreen() {
+
+    QWidget* winWindow = new QWidget;
+    QVBoxLayout* winLayout = new QVBoxLayout(winWindow);
+
+    QLabel* winLabel = new QLabel(winWindow);
+    winLabel->setText("Congrats, claim your trophy:");
+
+    QIcon icon3;
+    icon3.addFile(QString::fromUtf8("icons/winner.png"), QSize(), QIcon::Normal, QIcon::Off);
+
+    QPushButton* exitWin = new QPushButton(winWindow); // creating a button that closes the win window
+    exitWin->setIcon(icon3);
+    exitWin->setIconSize(QSize(350, 350));
+    
+
+    connect(exitWin, &QPushButton::clicked, this, [this, winWindow]() {
+        resetGame(difficulty);
+        winWindow->close();
+        });
+
+    winLayout->addWidget(winLabel, 0);
+    winLayout->addWidget(exitWin, 1);
+
+    winWindow->setWindowModality(Qt::ApplicationModal);
+
+
+    winWindow->show();
+}
 //This function shows a window that displays the developer's name and email address
 void QtMineSweeper::showInfo() {
     
@@ -38,10 +75,6 @@ void QtMineSweeper::showInfo() {
 void QtMineSweeper::tableGenerator(int diff = 0) {
 
     diff = difficulty;
-
-    int rowList[3]{ 10,16,16 };
-    int colList[3]{ 10,16,30 };
-    int mineList[3]{ 10,40,99 };
 
     mtable.reset(difficulty);
     mtable.mine_generator(mineList[difficulty]); //filling the table with mines
@@ -82,6 +115,8 @@ void QtMineSweeper::tableGenerator(int diff = 0) {
             });
         colCounter++;
 }
+    QtMineSweeper::setFixedHeight(800);
+    QtMineSweeper::setFixedWidth(1000);
 }
 //When a user clicks on a button, this function reveals the number behind it
 void QtMineSweeper::numberReveal(int displayNum, int buttonId) {
@@ -108,17 +143,17 @@ void QtMineSweeper::numberReveal(int displayNum, int buttonId) {
     gameButton[buttonId]->setText(possibleTexts[displayNum]);
     gameButton[buttonId]->setStyleSheet(possibleColors[displayNum]);
 
+    //this is what happens if the player clicks on a mine
     if (displayNum == 9) {
+
+        //changing the reset button's icon to a sad cat face
         QIcon icon2;
-        icon2.addFile(QString::fromUtf8("icons/FYG7kqdXkAM1-dY.png"), QSize(), QIcon::Normal, QIcon::Off);
+        icon2.addFile(QString::fromUtf8("icons/sadface.png"), QSize(), QIcon::Normal, QIcon::Off);
         ui.ResetButton->setIcon(icon2);
         ui.ResetButton->setIconSize(QSize(64, 63));
         ui.ResetButton->setAutoRepeat(false);
 
-        int rowList[3]{ 10,16,16 };
-        int colList[3]{ 10,16,30 };
-        int mineList[3]{ 10,40,99 };
-
+        //disables all the buttons, thus the player cannot proceed unless they resets the game
         int colCounter{ 0 }, rowCounter{ 0 };
         int totalFields = rowList[difficulty] * colList[difficulty];
 
@@ -139,29 +174,40 @@ void QtMineSweeper::numberReveal(int displayNum, int buttonId) {
             colCounter++;
         }
 
+        //Resets the score
+        highScore = 0;
+    }
+    else {
+        highScore++;
+        QString str = QString::fromUtf8("Score: " + std::to_string(highScore));
+        ui.scoreLabel->setText(str);
+    }
+
+    if (highScore == (rowList[difficulty] * colList[difficulty] - mineList[difficulty])) {
+        showWinScreen();
     }
 }
 //Resets the game field
 void QtMineSweeper::resetGame(int diff) {
 
-    int rowList[3]{ 10,16,16 };
-    int colList[3]{ 10,16,30 };
-    int mineList[3]{ 10,40,99 };
 
-    int colCounter, rowCounter;
+    int colCounterr{ 0 }, rowCounterr{ 0 };
     int totalFields = rowList[difficulty] * colList[difficulty];
+
+    ui.scoreLabel->setText("Score: 0");
+    ui.mineTimer->startTimer(1000);
 
     for (int i = 0; i < totalFields; i++) {
 
-        if (colCounter == colList[difficulty]) {
-            rowCounter++;
-            colCounter = 0;
+        if (colCounterr == colList[difficulty]) {
+            rowCounterr++;
+            colCounterr = 0;
         }
 
         ui.InnerGrid->removeWidget(gameButton[i]);
         delete[] gameButton[i];
 
-        colCounter++;
+        colCounterr++;
     }
 
     if (diff != 4) {
@@ -169,11 +215,9 @@ void QtMineSweeper::resetGame(int diff) {
     }
 
     tableGenerator(difficulty);
-    QtMineSweeper::setFixedHeight(800);
-    QtMineSweeper::setFixedWidth(1000);
 
     QIcon icon2;
-    icon2.addFile(QString::fromUtf8("icons/442-4422485_happy-cat-png-via-del-mar-beach.png"), QSize(), QIcon::Normal, QIcon::Off);
+    icon2.addFile(QString::fromUtf8("icons/happy.png"), QSize(), QIcon::Normal, QIcon::Off);
     ui.ResetButton->setIcon(icon2);
     ui.ResetButton->setIconSize(QSize(64, 63));
     ui.ResetButton->setAutoRepeat(false);
@@ -184,6 +228,16 @@ QtMineSweeper::QtMineSweeper(QWidget *parent)
     : QMainWindow(parent)
 {
     ui.setupUi(this);
+
+    QIcon icon2;
+    icon2.addFile(QString::fromUtf8("icons/happy.png"), QSize(), QIcon::Normal, QIcon::Off);
+    ui.ResetButton->setIcon(icon2);
+    ui.ResetButton->setIconSize(QSize(64, 63));
+    ui.ResetButton->setAutoRepeat(false);
+
+    QTimer* timer = new QTimer;
+    timer->setInterval(1000);
+    timer->start();
 
     connect(ui.actionInfo, &QAction::triggered, this, &QtMineSweeper::showInfo);
 
@@ -203,9 +257,7 @@ QtMineSweeper::QtMineSweeper(QWidget *parent)
         resetGame(2);
         });
 
-    tableGenerator();
-
-
+    tableGenerator(difficulty);
 }
 
 QtMineSweeper::~QtMineSweeper()
