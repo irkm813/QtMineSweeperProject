@@ -1,0 +1,5 @@
+﻿  moc QtMineSweeper.h
+  QtMineSweeper.cpp
+  main.cpp
+  moc_QtMineSweeper.cpp
+  QtMineSweeper.vcxproj -> C:\Users\Ferenc\source\repos\QtMineSweeper\x64\Debug\QtMineSweeper.exe
